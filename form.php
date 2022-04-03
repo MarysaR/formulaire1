@@ -1,16 +1,3 @@
-<?php 
-if (isset($_POST["name"])) {
-$name = $_POST["name"];
-if ($name != "") {
-    $lastname = $_POST["lastname"];
-    $sujet = $_POST["sujet"];
-    $email = $_POST["email"];
-    $tel = $_POST["tel"];
-    $message = $_POST["message"];
-}
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,45 +11,46 @@ if ($name != "") {
 <body>
     <form action="thank.php" method="post">
         <div>
-            <label for="name">Prénom</label>
-            <input type="text" id="name" name="prénom" value="name" required>
+            <label for="prenom">Prénom: </label>
+            <input type="text" id="prenom" name="prenom" required>
         </div>
 
         <div>
-            <label for="lastname">Nom</label>
-            <input type="text" id="lastname" name="nom" value="lastname" required>
+            <label for="name">Nom :</label>
+            <input type="text" id="name" name="name" required>
         </div>
 
         <div>
-            <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" value="email" required>
+            <label for="tel">Téléphone :</label>
+            <input type="text" id="tel" name="tel" required>
         </div>
 
         <div>
-            <label for="tel">Téléphone</label>
-            <input type="tel" id="tel" name="tel" value="tel" required>
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email">
         </div>
-        
+
         <div>
-            <label for="sujet">Sujet</label>
-            <select name="nom" id="3">
+            <label for="sujet">Sujet :</label>
+            <select name="sujet" id="sujet">
                 <option disabled>Choisir un sujet</option> 
-                <option>Demande de cours PHP</option>
-                <option>Demande de soutien PHP</option>
-                <option>Demande de soutien CSS</option>
+                <option value="cours">Demande de cours PHP</option>
+                <option value="soutienphp">Demande de soutien PHP</option>
+                <option value="soutcss">Demande de soutien CSS</option>
             </select>
             
         </div>
+        
         <div>
-            <label for="message">Message</label>
+            <label for="message">Message :</label>
             <textarea name="message" id="message" value="message" ></textarea required>
         </div>
 
         <div class="button">
-            <button type="submit">Submit</button>
+            <button type="submit" name="submit">Submit </button>
         </div>
-        <!----<?php var_dump($_GET);?>--->
-        <?php echo $_POST['name']; ?>
+        <!----<?php var_dump($_POST);?>--->
+        <!---<?php echo $_POST['name']; ?>--->
     </form>
 </body>
 

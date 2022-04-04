@@ -9,20 +9,22 @@
 </head>
 
 <body>
+    <h1>Le formulaire </h1>
+
     <form action="thank.php" method="post">
         <div>
             <label for="prenom">Prénom: </label>
-            <input type="text" id="prenom" name="prenom" required>
+            <input type="text" id="prenom" name="prenom">
         </div>
 
         <div>
             <label for="name">Nom :</label>
-            <input type="text" id="name" name="name" required>
+            <input type="text" id="name" name="name">
         </div>
 
         <div>
             <label for="tel">Téléphone :</label>
-            <input type="text" id="tel" name="tel" required>
+            <input type="text" id="tel" name="tel">
         </div>
 
         <div>
@@ -40,7 +42,7 @@
             </select>
             
         </div>
-        
+
         <div>
             <label for="message">Message :</label>
             <textarea name="message" id="message" value="message" ></textarea required>
@@ -49,8 +51,9 @@
         <div class="button">
             <button type="submit" name="submit">Submit </button>
         </div>
-        <!----<?php var_dump($_POST);?>--->
-        <!---<?php echo $_POST['name']; ?>--->
+
+        
+
     </form>
 </body>
 

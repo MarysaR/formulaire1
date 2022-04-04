@@ -1,51 +1,48 @@
 <?php
 // define variables and set to empty values
-$prenom = $name = $email = $sujet = $message = $tel = "";
+//$prenom = $name = $email = $sujet = $message = $tel = "";
 
-$errors = [];
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-}
-if (empty($_POST["prenom"])) {
-  $errors['prenom'] = "Ton prénom est requis";
-} else {
-  $prenom = test_input($_POST["prenom"]);
-}
+// Fonction des errors : test_input
+if (!empty($_POST)) {
 
-if (empty($_POST["name"])) {
-  $errors['name'] = "Le nom est requis";
-} else {
-  $name = test_input($_POST["name"]);
-}
+  // Déclarer son tableau
+  $errors = [];
 
-if (empty($_POST["email"])) {
-}
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-  $errors['email'] = "L'email n'est pas valable";
-} else {
-  $email = test_input($_POST["email"]);
-}
+  function test_input($data)
+  {
+    $test = array_map('trim', $data);
+    $test = array_map('htmlspecialchars', $data);
+    return $test;
+  }
 
-if (empty($_POST["tel"])) {
-  $errors['tel'] = "Veuillez saisir votre numéro";
-} else {
-  $tel = test_input($_POST["tel"]);
-}
+  $data = test_input($_POST);
 
-if (empty($_POST["sujet"])) {
-  $errors['sujet'] = "Le choix du sujet est requis";
-} else {
-  $sujet = test_input($_POST["sujet"]);
-}
+  if (empty($data["prenom"])) {
+    $errors['prenom'] = "Ton prénom est requis";
+  }
 
-function test_input($data)
-{
-  $data = trim($data);
-  $data = htmlspecialchars($data);
-  return $data;
+  if (empty($data["name"])) {
+    $errors['name'] = "Le nom est requis";
+  }
+
+  if (empty($data['email'])) {
+    $errors['email'] = "L'email est requis";
+  } else {
+    if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+      $errors['email'] = "L'email n'est pas valable";
+    }
+  }
+
+  if (empty($data["tel"])) {
+    $errors['tel'] = "Veuillez saisir votre numéro";
+  }
+
+  if (empty($data["sujet"])) {
+    $errors['sujet'] = "Le choix du sujet est requis";
+  }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -58,25 +55,25 @@ function test_input($data)
 </head>
 
 <body>
-  <?php if (empty($errors)) : ?>
-    <p>Merci <?= $_POST["prenom"] . " " . $_POST["name"] ?> de nous avoir contacté à propos de “<?= $_POST["sujet"] ?> <br>
+  <?php if (empty($errors)) { ?>
 
-      Un de nos conseiller vous contactera soit à l’adresse <?= $_POST["email"] ?> <br>
+    <p>Merci <?= $data["prenom"] . " " . $data["name"] ?> de nous avoir contacté à propos de “<?= $data["sujet"] ?> <br>
 
-      ou par téléphone au <?= $_POST["tel"] ?> dans les plus brefs délais pour traiter votre demande :
+      Un de nos conseiller vous contactera soit à l’adresse <?= $data["email"] ?> <br>
 
-      <?= $_POST["message"] ?></p>
-  <?php endif; ?>
+      ou par téléphone au <?= $data["tel"] ?> dans les plus brefs délais pour traiter votre demande :
 
-  <?php 
-        if (!empty($errors)) : ?>
-        <ul>
-            <?php foreach ($errors as $error) : ?>
-                <li><?= $error ?></li>
-                
-            <?php endforeach; ?>
-        </ul>
-         <?php endif; ?>
+      <?= $data["message"] ?></p>
+
+  <?php } else { ?>
+    <ul>
+      <?php foreach ($errors as $error) : ?>
+        <li><?= $error ?></li>
+
+      <?php endforeach; ?>
+    </ul>
+  <?php } ?>
+
 </body>
 
 </html>
